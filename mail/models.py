@@ -27,6 +27,22 @@ class Content(models.Model):
 
 
 # Create your models here.
+# def filter_data(field, value):
+#     return Message.objects.filter(field, value)
+
+
+def get_starred():
+    return Message.objects.filter(is_starred=True)
+
+
+def get_important():
+    return Message.objects.filter(is_important=True)
+
+
+def get_drafts():
+    return Message.objects.filter(is_sent=False)
+
+
 class Message(models.Model):
     sender = models.EmailField()
     sender_name = models.CharField(max_length=30, default=sender.__str__())
@@ -35,7 +51,11 @@ class Message(models.Model):
     bcc = models.EmailField(blank=True)
     content = models.ForeignKey(Content, on_delete=models.CASCADE)
     subject = models.CharField(max_length=1000, blank=True)
-    read = models.BooleanField(default=False)
+    is_read = models.BooleanField(default=False)
+    is_starred = models.BooleanField(default=False)
+    is_important = models.BooleanField(default=False)
+    is_sent = models.BooleanField(default=False)
+    is_received = models.BooleanField(default=True)
 
     def get_sender(self):
         if self.sender.__eq__(self.sender_name):
@@ -47,7 +67,7 @@ class Message(models.Model):
 
     @staticmethod
     def get_unread():
-        return '(' + Message.objects.filter(read=False).count() + ')'
+        return '(' + Message.objects.filter(is_read=False).count() + ')'
 
     def __str__(self):
         return self.subject

@@ -1,5 +1,22 @@
 {% extends 'base_true.html' %}
-
+{% load static %}
 {% block content %}
-    <h3>{{ message.subject }}</h3>
+
+    <div class="container">
+        <h2 class="text-dark" xmlns="http://www.w3.org/1999/html">{{ message.subject }}</h2>
+        <div class="container col">
+            <p>{{ messages.get_sender }}</p>
+            {% if messages.cc is not None or messages.cc is not '' %}
+                <p>{{ messages.cc }}</p>
+            {% endif %}
+            <p><b>to: </b>{{ messages.to }}</p>
+        </div>
+        <div class="container table-bordered">
+            <p>
+                {{ messages.content.body }}
+            </p>
+        </div>
+    </div>
+
+
 {% endblock %}

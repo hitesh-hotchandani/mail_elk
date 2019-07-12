@@ -1,3 +1,16 @@
 .navbar-brand {
-  font-family: 'Roboto Condensed', sans-serif;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.rounded {
+    border-radius: 2rem;
+}
+
+.content-column {
+    display: inline-flex;
+    float: left;
+}
+
+.table-fixed {
+    table-layout: auto;
 }
